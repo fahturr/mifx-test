@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/books', 'BooksController@index');
 Route::post('/books', 'BooksController@store')->middleware('auth.admin');
-Route::post('/books/{id}/reviews', 'BooksReviewController@store');
+Route::post('/books/{id}/reviews', 'BooksReviewController@store')->middleware('auth');
 Route::delete('/books/{bookId}/reviews/{reviewId}', 'BooksReviewController@destroy');

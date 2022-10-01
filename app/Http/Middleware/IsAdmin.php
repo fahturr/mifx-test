@@ -16,10 +16,14 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->is_admin) {
-            return $next($request);
+        if (Auth::check() && !Auth::user()->is_admin) {
+            return abort(403, 'Forbidden');
+        } 
+        
+        if (!Auth::check()) {
+            return abort(401, 'Unauthorized');
         }
-
-        return abort(403, 'Forbidden');
+        
+        return $next($request);
     }
 }
